@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Aurora.API.Configuration
 {
-    public class AutofacConfiguration
+    public class IoCConfiguration
     {
     }
 }
