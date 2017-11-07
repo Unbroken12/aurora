@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
+using Aurora.API.Backend.Requests.Form;
+using System.Threading.Tasks;
+using Aurora.API.Backend.Responses;
 
 namespace Aurora.API.Controllers
 {
@@ -13,38 +16,18 @@ namespace Aurora.API.Controllers
         public FormController(IMediator mediator)
         {
             _mediator = mediator;
-        }
+        }        
 
-        // GET: api/Form
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET: api/Form/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-        
-        // POST: api/Form
         [HttpPost]
-        public void Post([FromBody]string value)
+        [ProducesResponseType(typeof(void), 200)]
+        public async Task<ActionResult> CreateApiAsync([FromBody]CreateForm createFormRequest)
         {
-        }
-        
-        // PUT: api/Form/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-        
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            var response = await _mediator.Send(createFormRequest);
+
+            if (response.Result == CreateResult.Created)
+                return Ok(); // TODO: return 201
+            else
+                return StatusCode(500); // TODO: return client error
         }
     }
 }
