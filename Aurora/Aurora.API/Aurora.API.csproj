@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <UserSecretsId>2baa48b4-a65e-4b11-838d-4b5f734b202a</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,8 +11,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="3.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Aurora.API.Backend\Aurora.API.Backend.csproj" />
   </ItemGroup>
 
 </Project>
