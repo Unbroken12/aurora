@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.6.2" />
     <PackageReference Include="MediatR" Version="3.0.1" />
+    <PackageReference Include="MongoDB.Driver" Version="2.4.4" />
   </ItemGroup>
 
 </Project>
