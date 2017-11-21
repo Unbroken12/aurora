@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using Aurora.API.Backend.Requests.Form;
 using System.Threading.Tasks;
@@ -20,7 +19,7 @@ namespace Aurora.API.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(void), 200)]
-        public async Task<ActionResult> CreateApiAsync([FromBody]CreateForm createFormRequest)
+        public async Task<ActionResult> CreateAsync([FromBody]CreateForm createFormRequest)
         {
             var response = await _mediator.Send(createFormRequest);
 

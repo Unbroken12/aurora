@@ -36,7 +36,7 @@ namespace Aurora.API.Backend.Database
         protected override void Load(ContainerBuilder builder)
         {
             builder.Register(c => Db).AsSelf();
-            builder.Register((c, p) => Db.GetCollection<Form>("forms"));
+            builder.Register((c, p) => Db.GetCollection<DynamicForm>("forms"));
         }
     }
 }

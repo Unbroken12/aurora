@@ -8,5 +8,6 @@ namespace Aurora.API.Backend.Requests.Form
 {
     public class CreateForm : IRequest<Response<CreateResult>>
     {
+        public string Name { get; set; }
     }
 }
