@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  aurora.api:
+    image: aurora.api
+    build:
+      context: ./Aurora.API
+      dockerfile: Dockerfile
