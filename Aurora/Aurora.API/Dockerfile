@@ -3,5 +3,5 @@ ARG source
 WORKDIR /app
 EXPOSE 80
 RUN /bin/echo -e 'Source: ' + $source
-COPY ${source:-obj/Docker/publish} .
+COPY obj/Docker/publish .
 ENTRYPOINT ["dotnet", "Aurora.API.dll"]
