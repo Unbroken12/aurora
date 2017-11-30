@@ -2,6 +2,6 @@ FROM microsoft/aspnetcore:2.0
 ARG source
 WORKDIR /app
 EXPOSE 80
-RUN bash -c 'ls'
+RUN /bin/echo -e 'Source: ' + $source
 COPY ${source:-obj/Docker/publish} .
 ENTRYPOINT ["dotnet", "Aurora.API.dll"]
