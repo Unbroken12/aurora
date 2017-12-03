@@ -6,8 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.6.2" />
-    <PackageReference Include="MediatR" Version="3.0.1" />
-    <PackageReference Include="MongoDB.Driver" Version="2.4.4" />
+    <PackageReference Include="Empowermeet.AspNetCore.Identity.MongoDB" Version="1.0.0" />
+    <PackageReference Include="MediatR" Version="4.0.0" />
   </ItemGroup>
 
 </Project>

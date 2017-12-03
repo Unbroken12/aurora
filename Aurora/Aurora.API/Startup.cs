@@ -14,6 +14,16 @@ using MediatR;
 using System.Reflection;
 using System.Runtime.Loader;
 using Aurora.API.Backend.Responses;
+using Microsoft.Extensions.Options;
+using AspNetCore.Identity.MongoDB;
+using Microsoft.AspNetCore.Identity;
+using Aurora.API.Backend.Database.Collections;
+using MongoDB.Driver;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Aurora.API.Helpers;
+using System.Diagnostics;
 
 namespace Aurora.API
 {
@@ -33,10 +43,60 @@ namespace Aurora.API
 
         public IConfigurationRoot Configuration { get; private set; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //    .AddJwtBearer(options => {
+            //        options.TokenValidationParameters =
+            //             new TokenValidationParameters
+            //             {
+            //                 ValidateIssuer = true,
+            //                 ValidateAudience = true,
+            //                 ValidateLifetime = true,
+            //                 ValidateIssuerSigningKey = true,
+            //                 ValidIssuer = "Aurora.Security.Bearer",
+            //                 ValidAudience = "Aurora.Security.Bearer",
+            //                 IssuerSigningKey = JwtSecurityKey.Create("aurora.api super secret key")
+            //             };
+
+            //        options.Events = new JwtBearerEvents
+            //        {
+            //            OnAuthenticationFailed = context =>
+            //            {
+            //                Debug.WriteLine("OnAuthenticationFailed: " + context.Exception.Message);
+            //                return Task.CompletedTask;
+            //            },
+            //            OnTokenValidated = context =>
+            //            {
+            //                Debug.WriteLine("OnTokenValidated: " + context.SecurityToken);
+            //                return Task.CompletedTask;
+            //            }
+            //        };
+
+            //        options.IncludeErrorDetails = true;
+            //    });
+
+
+
+            services.Configure<MongoDbSettings>(Configuration.GetSection("MongoDb"));
+            services.AddSingleton<IUserStore<User>>(provider =>
+            {
+                var options = provider.GetService<IOptions<MongoDbSettings>>();
+                var client = new MongoClient(options.Value.ConnectionString);
+                var database = client.GetDatabase("auroradb");
+                //var database = Configuration.Get<IMongoDatabase>();
+
+                return new MongoUserStore<User>(database);
+            });
+
+            services.AddIdentity<User>()
+                .AddDefaultTokenProviders();
+
+            services.AddAuthorization(options =>
+            {
+
+            });
+
             services.AddMvc().AddJsonOptions(j => {
                 
             });
@@ -53,20 +113,21 @@ namespace Aurora.API
             }
             else
             {
-                app.UseExceptionHandler();
+               // app.UseExceptionHandler();
             }
 
+            app.UseAuthentication();
             app.UseMvc();
 
-            app.Run(async (context) =>
-            {
+            //app.Run(async (context) =>
+            //{
                 
-            });
+            //});
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterModule(new MongoModule());
+            builder.RegisterModule(new MongoModule(null));
         }
     }
 }

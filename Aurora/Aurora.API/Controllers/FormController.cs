@@ -3,11 +3,13 @@ using MediatR;
 using Aurora.API.Backend.Requests.Form;
 using System.Threading.Tasks;
 using Aurora.API.Backend.Responses;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Aurora.API.Controllers
 {
+    [Authorize]
     [Produces("application/json")]
-    [Route("api/Form")]
+    [Route("api/[controller]")]
     public class FormController : Controller
     {
         private readonly IMediator _mediator;
@@ -15,11 +17,11 @@ namespace Aurora.API.Controllers
         public FormController(IMediator mediator)
         {
             _mediator = mediator;
-        }        
+        }
 
         [HttpPost]
         [ProducesResponseType(typeof(void), 200)]
-        public async Task<ActionResult> CreateAsync([FromBody]CreateForm createFormRequest)
+        public async Task<ActionResult> Create([FromBody]CreateFormRequest createFormRequest)
         {
             var response = await _mediator.Send(createFormRequest);
 

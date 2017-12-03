@@ -7,7 +7,7 @@ using Aurora.API.Backend.Database.Collections;
 
 namespace Aurora.API.Backend.RequestHandlers.Form
 {
-    public class CreateFormHandler : IAsyncRequestHandler<CreateForm, Response<CreateResult>>
+    public class CreateFormHandler : AsyncRequestHandler<CreateFormRequest, Response<CreateResult>>
     {
         private readonly IMongoCollection<DynamicForm> _mongoCollection;
 
@@ -16,7 +16,7 @@ namespace Aurora.API.Backend.RequestHandlers.Form
             _mongoCollection = mongoCollection;
         }
 
-        public async Task<Response<CreateResult>> Handle(CreateForm request)
+        protected override async Task<Response<CreateResult>> HandleCore(CreateFormRequest request)
         {
             // todo: use automapper
             var form = new DynamicForm() { Name = request.Name };

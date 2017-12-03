@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Aurora.API.Backend.Requests.Form
 {
-    public class CreateForm : IRequest<Response<CreateResult>>
+    public class CreateFormRequest : IRequest<Response<CreateResult>>
     {
         public string Name { get; set; }
     }

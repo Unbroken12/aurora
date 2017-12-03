@@ -16,7 +16,7 @@ namespace Aurora.API.Backend.Database
 
         private readonly Lazy<IMongoDatabase> _database;
 
-        public MongoModule()
+        public MongoModule(string _connectionString)
         {
             _database = new Lazy<IMongoDatabase>(GetDatabase, LazyThreadSafetyMode.ExecutionAndPublication);
         }
